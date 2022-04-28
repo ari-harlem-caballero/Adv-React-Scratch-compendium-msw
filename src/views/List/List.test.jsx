@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
-import List from '../List/List';
+import CharacterList from '../List/List';
 
 // character data
 // setupServer (rest.get, ctx)
