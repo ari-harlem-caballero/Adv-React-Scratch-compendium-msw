@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 export default function CharacterList() {
   // set state: loading, results, filter
   // useEffect: fetchCharacters (data.map: id, photoUrl, name, affiliation)
-  // handleSearch: filter characters based on nation
+  // handleSearch: filter characters based on nation (dropdown holder)
   // return:
-    /// loading
+    /// loading/spinner
     /// map list of CharacterCard
 }
