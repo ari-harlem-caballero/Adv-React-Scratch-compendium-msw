@@ -1,4 +1,4 @@
 export default function App() {
   return;
-  // click events (random quote)
+  // holds list component
 }
