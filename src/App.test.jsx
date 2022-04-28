@@ -35,11 +35,18 @@ const server = setupServer(
 
 describe('App', () => {
   //beforeAll
+  beforeAll(() => server.listen());
   //afterAll
+  afterAll(() => server.close());
 
   it('shoulder render a list of characters', async () => {
     // render App
+    render(<App />)
+
     // loading
+    screen.getByText(/loading/i);
+
     // find character
+    await screen.findByText(/sokka/i);
   });
 });
