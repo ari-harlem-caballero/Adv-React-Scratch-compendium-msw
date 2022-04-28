@@ -24,8 +24,14 @@ const data = [
     photoUrl: 'https://vignette.wikia.nocookie.net/avatar/images/4/43/Inquisitive_Momo.png/revision/latest?cb=20081225191217',
     affiliation: 'Air Nomads'
   }
-]
+];
+
 // setupServer (rest.get, ctx)
+const server = setupServer(
+  rest.get('https://last-airbender-api.herokuapp.com/api/v1/characters?perPage=500', (req, res, ctx) =>
+  res(ctx.json([data]))
+  )
+);
 
 describe('App', () => {
   //beforeAll
