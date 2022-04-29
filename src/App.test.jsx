@@ -8,7 +8,7 @@ describe('App', () => {
     render(<App />)
 
     // loading
-    screen.getByText(/loading/i);
+    screen.getByAltText(/avatar wheel of punishment spinner/i);
 
     // find character
     await screen.findByText(/sokka/i);
