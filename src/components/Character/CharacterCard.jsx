@@ -4,7 +4,7 @@ export default function CharacterCard({ character }) {
   return (
     <>
       <figure >
-        <img src={character.photoUrl} alt={character.name}/>
+        <img src={character.image} alt={character.name}/>
         <h2>{character.name}</h2>
         <p>{character.nation}</p>
       </figure>

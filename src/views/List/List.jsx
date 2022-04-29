@@ -13,6 +13,25 @@ export default function CharacterList() {
   const [filter, setFilter] = useState(1);
 
   // useEffect: fetchCharacters (data.map: id, photoUrl, name, affiliation)
+  useEffect(() => {
+    const fetchAvatar = async () => {
+      const res = await fetch('https://last-airbender-api.herokuapp.com/api/v1/characters?perPage=500');
+      const json = await res.json();
+      
+      const avatarInfo = json.map((info)  => ({
+        id: info._id,
+        name: info.name,
+        image: info.photoUrl,
+        nation: info.affiliation,
+      }));
+
+      setCharacters(avatarInfo);
+      setLoading(false);
+    };
+
+    fetchAvatar();
+  }, []);
+
   // handleSearch: filter characters based on nation (dropdown holder)
   // return:
     /// loading/spinner

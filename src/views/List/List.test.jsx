@@ -7,7 +7,7 @@ import CharacterList from '../List/List';
 describe('Character List', () => {
   it('should render a list of characters that are filterable by dropdown', async () => {
     // render
-    render(<CharacterList data={data} />);
+    render(<CharacterList />);
 
     // loading remove
     await waitForElementToBeRemoved(screen.getByAltText(/avatar wheel of punishment spinner/i));
