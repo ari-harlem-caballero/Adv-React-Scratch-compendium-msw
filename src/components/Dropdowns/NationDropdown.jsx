@@ -1,9 +1,9 @@
 // dropdown with nation (water, earth, fire, air, clear)
 
-export default function NationDropdown({ nation }) {
+export default function NationDropdown({ selectNation }) {
   // handle change
   function handleChange(e) {
-    nation(e.target.value);
+    selectNation(e.target.value);
   }
   // return: onChange(handle), options (value)
   return <select 
