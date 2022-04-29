@@ -28,8 +28,7 @@ const data = [
 
 // setupServer (rest.get, ctx)
 const server = setupServer(
-  rest.get('https://last-airbender-api.herokuapp.com/api/v1/characters?perPage=500', (req, res, ctx) =>
-  res(ctx.json([data]))
+  rest.get('https://last-airbender-api.herokuapp.com/api/v1/characters', (req, res, ctx) => res(ctx.json(data))
   )
 );
 

@@ -9,10 +9,10 @@ export default function NationDropdown({ selectNation }) {
   return <select 
   className="nation-dropdown" 
   onChange={handleChange}>
-    <option value='1'>All</option>
-    <option value='2'>Water Tribe</option>
-    <option value='3'>Earth Kingdom</option>
-    <option value='4'>Fire Nation</option>
-    <option value='5'>Air Nomads</option>
+    <option value='all'>All</option>
+    <option value='water'>Water Tribe</option>
+    <option value='earth'>Earth Kingdom</option>
+    <option value='fire'>Fire Nation</option>
+    <option value='air'>Air Nomads</option>
   </select>
 }

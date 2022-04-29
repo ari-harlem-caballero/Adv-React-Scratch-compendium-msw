@@ -1,5 +1,5 @@
 // test list displays
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitForElementToBeRemoved } from '@testing-library/react'
 import App from './App'
 
 describe('App', () => {
@@ -10,7 +10,10 @@ describe('App', () => {
     // loading
     screen.getByAltText(/avatar wheel of punishment spinner/i);
 
+    await waitForElementToBeRemoved(screen.getByAltText(/avatar wheel of punishment spinner/i));
+
     // find character
-    await screen.findByText(/sokka/i);
+    const result = await screen.findByText('Sokka');
+    expect(result.textContent).toEqual('Sokka');
   });
 });
