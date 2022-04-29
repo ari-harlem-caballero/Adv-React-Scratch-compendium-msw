@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 // import: CharacterCard, NationDropdown
 
+
 export default function CharacterList() {
   // set state: loading, results, filter
   // useEffect: fetchCharacters (data.map: id, photoUrl, name, affiliation)
