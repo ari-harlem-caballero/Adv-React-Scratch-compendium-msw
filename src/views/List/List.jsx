@@ -1,4 +1,5 @@
 // holds list of character cards, dropdown component, filters
+import './List.css';
 import { useEffect, useState } from 'react';
 // import: CharacterCard, NationDropdown
 import CharacterCard from '../../components/Character/CharacterCard';
@@ -22,8 +23,8 @@ export default function CharacterList() {
       { loading ? (
         <figure>
           <img 
-            src='../assets/avatar_spinner.gif'
-            alt='avatar wheel of punishment spinner' 
+            src='./avatar_spinner.gif'
+            alt='avatar wheel of punishment spinner'
           />
           <figcaption>Loading...</figcaption>
         </figure>
