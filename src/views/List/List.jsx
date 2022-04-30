@@ -10,10 +10,9 @@ export default function CharacterList() {
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState('');
   const [filtered, setFiltered] = useState([]);
 
-  // useEffect: fetchCharacters (data.map: id, photoUrl, name, affiliation)
   useEffect(() => {
     const fetchAvatar = async () => {
       const res = await fetch('https://last-airbender-api.herokuapp.com/api/v1/characters?perPage=500');
@@ -33,17 +32,27 @@ export default function CharacterList() {
     fetchAvatar();
   }, []);
   
+
   useEffect(() => {
     const characterNation = characters.filter((character) => {
+      if (filter === 'all') return character;
+
+      const lowerCase = character.nation.toLowerCase();
+      console.log('lowerCase', lowerCase);
+
+      const split = lowerCase.split(' ');
+      console.log('split', split);
+
+      const include = split.includes(filter.toLowerCase());
+      console.log('include', include);
+      if (include === true) return character;
       return character.nation === filter;
     });
-
+    
     setResults(characterNation);
   }, [filter])
 
-  // return:
-    /// loading/spinner
-    /// map list of CharacterCard
+
   return (
     <>
       <h1>Avatar Characters:</h1>
@@ -59,10 +68,9 @@ export default function CharacterList() {
         <>
           <NationDropdown selectNation={setFilter} />
           <section>
-
-            {(filtered.length ? filtered : results).map((character) => {
+            {characters.map((character, i) => {
               return (
-                <CharacterCard character={character} />
+                <CharacterCard key={`${character.id} - ${i}`}character={character} />
               )
             })}
           </section>
