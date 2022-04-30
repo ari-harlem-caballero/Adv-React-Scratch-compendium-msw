@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 // import: CharacterCard, NationDropdown
 import CharacterCard from '../../components/Character/CharacterCard';
 import NationDropdown from '../../components/Dropdowns/NationDropdown';
+import { avatarFetch } from '../../utils/fetch-utils';
 
 export default function CharacterList() {
   // set state: loading, results, filter
@@ -13,19 +14,15 @@ export default function CharacterList() {
   const [filter, setFilter] = useState('');
   const [filtered, setFiltered] = useState([]);
 
+  const currentFilter = !!results.length;
+  const noResults = currentFilter && !results.length;
+  const characterList = currentFilter ? results : characters;
+
   useEffect(() => {
     const fetchAvatar = async () => {
-      const res = await fetch('https://last-airbender-api.herokuapp.com/api/v1/characters?perPage=500');
-      const json = await res.json();
-      
-      const avatarInfo = json.map((info)  => ({
-        id: info._id,
-        name: info.name,
-        image: info.photoUrl,
-        nation: info.affiliation,
-      }));
+      const characterList = await avatarFetch();
 
-      setCharacters(avatarInfo);
+      setCharacters(characterList);
       setLoading(false);
     };
 
@@ -34,7 +31,7 @@ export default function CharacterList() {
   
 
   useEffect(() => {
-    const characterNation = characters.filter((character) => {
+    const characterNation = characters.map((character) => {
       if (filter === 'all') return character;
 
       const lowerCase = character.nation.toLowerCase();
@@ -43,12 +40,9 @@ export default function CharacterList() {
       const split = lowerCase.split(' ');
       console.log('split', split);
 
-      const include = split.includes(filter.toLowerCase());
-      console.log('include', include);
-      if (include === true) return character;
-      return character.nation === filter;
+      if (split === true) return character;
     });
-    
+    console.log('characterNation', characterNation);
     setResults(characterNation);
   }, [filter])
 
@@ -76,6 +70,7 @@ export default function CharacterList() {
           </section>
         </>
       )}
+      {noResults && <p>No Results Found</p>}
     </>
   )
 }
