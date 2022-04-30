@@ -10,7 +10,8 @@ export default function CharacterList() {
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
-  const [filter, setFilter] = useState(1);
+  const [filter, setFilter] = useState('All');
+  const [filtered, setFiltered] = useState([]);
 
   // useEffect: fetchCharacters (data.map: id, photoUrl, name, affiliation)
   useEffect(() => {
@@ -31,8 +32,15 @@ export default function CharacterList() {
 
     fetchAvatar();
   }, []);
+  
+  useEffect(() => {
+    const characterNation = characters.filter((character) => {
+      return character.nation === filter;
+    });
 
-  // handleSearch: filter characters based on nation (dropdown holder)
+    setResults(characterNation);
+  }, [filter])
+
   // return:
     /// loading/spinner
     /// map list of CharacterCard
@@ -51,7 +59,8 @@ export default function CharacterList() {
         <>
           <NationDropdown selectNation={setFilter} />
           <section>
-            {characters.map((character) => {
+
+            {(filtered.length ? filtered : results).map((character) => {
               return (
                 <CharacterCard character={character} />
               )

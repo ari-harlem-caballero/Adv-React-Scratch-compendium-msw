@@ -16,7 +16,7 @@ describe('Character List', () => {
     const dropdown = screen.getByRole('combobox');
 
     // filter with dropdown
-    userEvent.selectOptions(screen.getByRole('combobox'), 'fire');
+    userEvent.selectOptions(screen.getByRole('combobox'), 'Fire Nation');
     expect(screen.getByRole('option', {name: 'Fire Nation'}).selected).toBe(true);
 
     // expect name/character
