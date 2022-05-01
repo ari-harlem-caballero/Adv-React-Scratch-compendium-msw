@@ -5,7 +5,7 @@ import CharacterList from '../List/List';
 
 
 describe('Character List', () => {
-  it('should render a list of characters that are filterable by dropdown', async () => {
+  it.skip('should render a list of characters that are filterable by dropdown', async () => {
     // render
     render(<CharacterList />);
 

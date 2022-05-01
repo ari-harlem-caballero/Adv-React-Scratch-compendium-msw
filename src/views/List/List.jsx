@@ -3,7 +3,6 @@ import './List.css';
 import { useEffect, useState } from 'react';
 // import: CharacterCard, NationDropdown
 import CharacterCard from '../../components/Character/CharacterCard';
-import NationDropdown from '../../components/Dropdowns/NationDropdown';
 import { avatarFetch } from '../../utils/fetch-utils';
 
 export default function CharacterList() {
@@ -11,12 +10,15 @@ export default function CharacterList() {
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
-  const [filter, setFilter] = useState('');
-  const [filtered, setFiltered] = useState([]);
+  const [filterNation, setFilterNation] = useState('');
+  const [isFiltering, setIsFiltering] = useState(false);
 
-  const currentFilter = !!results.length;
-  const noResults = currentFilter && !results.length;
-  const characterList = currentFilter ? results : characters;
+  const noResults = isFiltering && !results.length;
+  const characterList = isFiltering ? results : characters;
+
+  const handleChange = event => {
+    setFilterNation(event.target.value);
+  }
 
   useEffect(() => {
     const fetchAvatar = async () => {
@@ -29,23 +31,13 @@ export default function CharacterList() {
     fetchAvatar();
   }, []);
   
-
   useEffect(() => {
-    const characterNation = characters.map((character) => {
-      if (filter === 'all') return character;
-
-      const lowerCase = character.nation.toLowerCase();
-      console.log('lowerCase', lowerCase);
-
-      const split = lowerCase.split(' ');
-      console.log('split', split);
-
-      if (split === true) return character;
-    });
-    console.log('characterNation', characterNation);
-    setResults(characterNation);
-  }, [filter])
-
+    const filteredCharacters = characters.filter((character) => {
+      return character.nation === filterNation;
+  });
+  
+    setResults(filteredCharacters);
+  }, [filterNation]);
 
   return (
     <>
@@ -60,11 +52,21 @@ export default function CharacterList() {
         </figure>
       ) : (
         <>
-          <NationDropdown selectNation={setFilter} />
+          <label>
+            <select 
+              value={filterNation}
+              onChange={handleChange}>
+              <option value='all'>All</option>
+              <option value='water'>Water Tribe</option>
+              <option value='earth'>Earth Kingdom</option>
+              <option value='fire'>Fire Nation</option>
+              <option value='air'>Air Nomads</option>
+            </select>
+          </label>
           <section>
-            {characters.map((character, i) => {
+            {characterList.map((character, i) => {
               return (
-                <CharacterCard key={`${character.id} - ${i}`}character={character} />
+                <CharacterCard key={`${character.id} - ${i}`} character={character} />
               )
             })}
           </section>

@@ -6,21 +6,19 @@ export default function NationDropdown({ selectNation }) {
   const [filter, setFilter] = useState('');
 
   // handle change
-  const handleChange = (e) => {
+  function handleChange(e) {
     setFilter(e.target.value);
     selectNation(e.target.value);
   }
   // return: onChange(handle), options (value)
-  return (
-  <select 
-    className="nation-dropdown"
-    value={filter}
-    onChange={handleChange}>
-      <option value='all'>All</option>
-      <option value='water'>Water Tribe</option>
-      <option value='earth'>Earth Kingdom</option>
-      <option value='fire'>Fire Nation</option>
-      <option value='air'>Air Nomads</option>
+  return <select 
+  className="nation-dropdown"
+  value={filter}
+  onChange={handleChange}>
+    <option value='all'>All</option>
+    <option value='water'>Water Tribe</option>
+    <option value='earth'>Earth Kingdom</option>
+    <option value='fire'>Fire Nation</option>
+    <option value='air'>Air Nomads</option>
   </select>
-  )
 }
