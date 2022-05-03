@@ -1,14 +1,9 @@
 // dropdown with nation (water, earth, fire, air, clear)
 
-import { useState } from "react";
-
-export default function NationDropdown({ selectNation }) {
-  const [filter, setFilter] = useState('All');
-
+export default function NationDropdown({ filter, setFilter }) {
   // handle change
   function handleChange(e) {
     setFilter(e.target.value);
-    selectNation(e.target.value);
   }
   // return: onChange(handle), options (value)
   return <select 
@@ -16,9 +11,9 @@ export default function NationDropdown({ selectNation }) {
   value={filter}
   onChange={handleChange}>
     <option value='all'>All</option>
-    <option value='Water Tribe'>Water Tribe</option>
-    <option value='Earth Kingdom'>Earth Kingdom</option>
-    <option value='Fire Nation'>Fire Nation</option>
-    <option value='Air Nomads'>Air Nomads</option>
+    <option value='water'>Water Tribe</option>
+    <option value='earth'>Earth Kingdom</option>
+    <option value='fire'>Fire Nation</option>
+    <option value='air'>Air Nomads</option>
   </select>
 }
