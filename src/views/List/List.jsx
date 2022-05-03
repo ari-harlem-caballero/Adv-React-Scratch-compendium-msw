@@ -9,8 +9,7 @@ export default function CharacterList() {
   // set state: loading, results, filter
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [results, setResults] = useState([]);
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState('all');
   const [filtered, setFiltered] = useState([]);
 
   // useEffect: fetchCharacters (data.map: id, photoUrl, name, affiliation)
@@ -27,6 +26,7 @@ export default function CharacterList() {
       }));
 
       setCharacters(avatarInfo);
+      setFiltered(avatarInfo);
       setLoading(false);
     };
 
@@ -34,11 +34,31 @@ export default function CharacterList() {
   }, []);
   
   useEffect(() => {
-    const characterNation = characters.filter((character) => {
-      return character.nation === filter;
-    });
+    try {
+      const characterNation = characters.reduce((tribe, character) => {
+        if(filter == 'all') {
+          tribe.push(character);
+        }
+        if(character.nation) {
+          const nation = character.nation
+            .toLowerCase()
+            .split(' ');
 
-    setResults(characterNation);
+          const includes = nation.includes(filter);
+
+          if(includes === true) {
+            tribe.push(character);
+          } 
+        }
+
+        return tribe;
+      }, []);
+
+        setFiltered(characterNation);
+    } catch {
+      console.log('hold your horses')
+    }
+    
   }, [filter])
 
   // return:
@@ -57,14 +77,11 @@ export default function CharacterList() {
         </figure>
       ) : (
         <>
-          <NationDropdown selectNation={setFilter} />
+          <NationDropdown setFilter={setFilter} filter={filter}/>
           <section>
-
-            {(filtered.length ? filtered : results).map((character) => {
-              return (
-                <CharacterCard character={character} />
-              )
-            })}
+            {filtered.length && filtered.map((character) => (
+                <CharacterCard character={character} key={character.id}/>
+            ))}
           </section>
         </>
       )}
