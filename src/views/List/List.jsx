@@ -34,9 +34,21 @@ export default function CharacterList() {
   }, []);
   
   useEffect(() => {
-    const characterNation = characters.filter((character) => {
-      return character.nation === filter;
-    });
+    const characterNation = characters.reduce(({tribe, character}) => {
+      if(character.nation) {
+        const nation = character.nation
+          .toLowerCase()
+          .split(' ');
+
+        const includes = nation.includes(filter);
+
+        if (includes === true) {
+          tribe.push(character);
+        }
+      }
+
+      return tribe;
+    }, [filter]);
 
     setResults(characterNation);
   }, [filter])
